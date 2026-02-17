@@ -7,7 +7,7 @@ import { Rss, Radio, List } from 'lucide-vue-next'
  */
 export class RssWatcherMenuBuilder extends MenuBuilder {
   build(menu: MenuItemConfig, menuName: string): MenuItemConfig {
-    if (menuName === 'admin') {
+    if (menuName === 'settings') {
       return this.buildMainMenu(menu)
     }
     return menu
