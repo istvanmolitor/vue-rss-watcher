@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AdminLayout from '@admin/components/layout/DashboardLayout.vue'
-import Button from '@admin/components/ui/Button.vue'
+import Button from '@admin/components/ui/button/Button.vue'
 import Icon from '@admin/components/ui/Icon.vue'
 import RowActions from '@admin/components/ui/RowActions.vue'
 import DataTable, { type Column, type PaginationMeta } from '@admin/components/DataTable.vue'
