@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AdminLayout from '@admin/components/layout/DashboardLayout.vue'
+import AdminLayout from '@admin/components/layout/AdminLayout.vue'
 import Button from '@admin/components/ui/button/Button.vue'
 import Icon from '@admin/components/ui/Icon.vue'
 import RowActions from '@admin/components/ui/RowActions.vue'
