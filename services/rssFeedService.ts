@@ -73,5 +73,12 @@ export const rssFeedService = {
   delete(id: number | string) {
     return api.delete(`/api/rss-watcher/feeds/${id}`)
   },
+
+  /**
+   * Fetch RSS feed items from source
+   */
+  fetch(id: number | string) {
+    return api.post(`/api/rss-watcher/feeds/${id}/fetch`)
+  },
 }
 

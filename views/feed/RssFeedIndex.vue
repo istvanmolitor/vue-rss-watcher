@@ -2,6 +2,7 @@
 import { AdminLayout, toastService, Button, Icon } from '@admin'
 import DataTable, { type Column, type PaginationMeta } from '@admin/components/ui/dataTable/DataTable.vue'
 import RowActions from '@admin/components/ui/RowActions.vue'
+import IconButton from '@admin/components/ui/button/IconButton.vue'
 import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { rssFeedService, type RssFeed } from '../../services/rssFeedService'
@@ -9,6 +10,7 @@ import { rssFeedService, type RssFeed } from '../../services/rssFeedService'
 const router = useRouter()
 const feeds = ref<RssFeed[]>([])
 const isLoading = ref(false)
+const fetchingId = ref<number | null>(null)
 const pagination = ref<PaginationMeta>({
   current_page: 1,
   last_page: 1,
@@ -55,6 +57,20 @@ const deleteFeed = async (id: number) => {
 
 const editFeed = (id: number) => {
   router.push(`/rss-feeds/${id}/edit`)
+}
+
+const fetchFeed = async (id: number) => {
+  try {
+    fetchingId.value = id
+    await rssFeedService.fetch(id)
+    toastService.success('RSS feed sikeresen frissítve!')
+    await fetchFeeds({ page: pagination.value.current_page })
+  } catch (error) {
+    console.error('Hiba az RSS feed frissítésekor:', error)
+    toastService.error('Hiba történt a frissítés során.')
+  } finally {
+    fetchingId.value = null
+  }
 }
 
 const formatDate = (dateString: string | null) => {
@@ -107,10 +123,18 @@ onMounted(() => {
       </template>
 
       <template #row-actions="{ row }">
-        <RowActions
-          @edit="editFeed(row.id)"
-          @delete="deleteFeed(row.id)"
-        />
+        <div class="flex items-center justify-end gap-1">
+          <IconButton
+            icon="RefreshCcw"
+            title="Frissítés"
+            :disabled="fetchingId === row.id"
+            @click="fetchFeed(row.id)"
+          />
+          <RowActions
+            @edit="editFeed(row.id)"
+            @delete="deleteFeed(row.id)"
+          />
+        </div>
       </template>
 
       <template #empty>
