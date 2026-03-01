@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import AdminLayout from '@admin/components/layout/AdminLayout.vue'
-import Button from '@admin/components/ui/button/Button.vue'
-import Icon from '@admin/components/ui/Icon.vue'
+import { AdminLayout, toastService, Button, Icon } from '@admin'
+import DataTable, { type Column, type PaginationMeta } from '@admin/components/ui/dataTable/DataTable.vue'
 import RowActions from '@admin/components/ui/RowActions.vue'
-import DataTable, { type Column, type PaginationMeta } from '@admin/components/DataTable.vue'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { rssFeedService, type RssFeed } from '../../services/rssFeedService'
 
 const router = useRouter()
@@ -45,15 +43,13 @@ const fetchFeeds = async (params: {
 }
 
 const deleteFeed = async (id: number) => {
-  if (!confirm('Biztosan törölni szeretnéd ezt az RSS feedet?')) {
-    return
-  }
-
   try {
     await rssFeedService.delete(id)
+    toastService.success('RSS feed sikeresen törölve!')
     await fetchFeeds({ page: pagination.value.current_page })
   } catch (error) {
     console.error('Hiba az RSS feed törlésekor:', error)
+    toastService.error('Hiba történt a törlés során.')
   }
 }
 
@@ -65,14 +61,14 @@ const formatDate = (dateString: string | null) => {
   if (!dateString) return 'Még nem volt'
   return new Date(dateString).toLocaleString('hu-HU')
 }
+
+onMounted(() => {
+  fetchFeeds({ page: 1, sort: 'id', direction: 'desc' })
+})
 </script>
 
 <template>
-  <AdminLayout>
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="text-3xl font-bold tracking-tight">RSS Feedek</h2>
-    </div>
-
+  <AdminLayout pageTitle="RSS Feedek">
     <DataTable
       :columns="columns"
       :data="feeds"

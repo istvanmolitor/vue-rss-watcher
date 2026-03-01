@@ -1,9 +1,6 @@
 import { createApiClient } from '@user/services/apiClient'
 
-const api = createApiClient({
-  withCredentials: true,
-})
-
+const api = createApiClient()
 
 export interface RssFeed {
   id: number

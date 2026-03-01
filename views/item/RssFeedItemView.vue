@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import AdminLayout from '@admin/components/layout/AdminLayout.vue'
-import Button from '@admin/components/ui/button/Button.vue'
+import { AdminLayout, BackButton } from '@admin'
 import Card from '@admin/components/ui/Card.vue'
 import CardContent from '@admin/components/ui/CardContent.vue'
 import CardHeader from '@admin/components/ui/CardHeader.vue'
@@ -14,22 +13,18 @@ const route = useRoute()
 const isLoading = ref(true)
 const item = ref<RssFeedItem | null>(null)
 
-const itemId = ref<string | number>(route.params.id as string)
-
 const fetchItem = async () => {
+  const id = route.params.id as string
   try {
     isLoading.value = true
-    const response = await rssFeedItemService.getById(itemId.value)
+    const response = await rssFeedItemService.getById(id)
     item.value = response.data.data
   } catch (error) {
     console.error('Hiba az RSS elem betöltésekor:', error)
+    router.push('/rss-items')
   } finally {
     isLoading.value = false
   }
-}
-
-const goBack = () => {
-  router.push('/rss-items')
 }
 
 const formatDate = (dateString: string | null) => {
@@ -43,10 +38,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <AdminLayout>
+  <AdminLayout pageTitle="RSS Elem részletei">
     <div class="flex items-center justify-between space-y-2 mb-4">
-      <h2 class="text-3xl font-bold tracking-tight">RSS Elem részletei</h2>
-      <Button variant="outline" @click="goBack">Vissza</Button>
+      <BackButton to="/rss-items" />
     </div>
 
     <div v-if="isLoading" class="flex justify-center py-8">

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import AdminLayout from '@admin/components/layout/AdminLayout.vue'
-import Button from '@admin/components/ui/button/Button.vue'
-import Icon from '@admin/components/ui/Icon.vue'
+import { AdminLayout, toastService } from '@admin'
+import DataTable, { type Column, type PaginationMeta } from '@admin/components/ui/dataTable/DataTable.vue'
 import RowActions from '@admin/components/ui/RowActions.vue'
-import DataTable, { type Column, type PaginationMeta } from '@admin/components/DataTable.vue'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { rssFeedItemService, type RssFeedItem } from '../../services/rssFeedItemService'
 
 const router = useRouter()
@@ -44,15 +42,13 @@ const fetchItems = async (params: {
 }
 
 const deleteItem = async (id: number) => {
-  if (!confirm('Biztosan törölni szeretnéd ezt az RSS elemet?')) {
-    return
-  }
-
   try {
     await rssFeedItemService.delete(id)
+    toastService.success('RSS elem sikeresen törölve!')
     await fetchItems({ page: pagination.value.current_page })
   } catch (error) {
     console.error('Hiba az RSS elem törlésekor:', error)
+    toastService.error('Hiba történt a törlés során.')
   }
 }
 
@@ -64,14 +60,14 @@ const formatDate = (dateString: string | null) => {
   if (!dateString) return '-'
   return new Date(dateString).toLocaleString('hu-HU')
 }
+
+onMounted(() => {
+  fetchItems({ page: 1, sort: 'published_at', direction: 'desc' })
+})
 </script>
 
 <template>
-  <AdminLayout>
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="text-3xl font-bold tracking-tight">RSS Elemek</h2>
-    </div>
-
+  <AdminLayout pageTitle="RSS Elemek">
     <DataTable
       :columns="columns"
       :data="items"
@@ -100,9 +96,10 @@ const formatDate = (dateString: string | null) => {
 
       <template #row-actions="{ row }">
         <RowActions
-          @edit="viewItem(row.id)"
+          :show-show="true"
+          :show-edit="false"
+          @show="viewItem(row.id)"
           @delete="deleteItem(row.id)"
-          edit-label="Megtekintés"
         />
       </template>
 
