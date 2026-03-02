@@ -131,7 +131,7 @@ export function useRssFeedItems() {
       if (!grouped[item.rss_feed_id]) {
         grouped[item.rss_feed_id] = []
       }
-      grouped[item.rss_feed_id].push(item)
+      grouped[item.rss_feed_id]!.push(item)
     })
     return grouped
   })
