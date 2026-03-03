@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { AdminLayout, toastService } from '@admin'
+import { AdminLayout, toastService, DeleteButton, IconButton } from '@admin'
 import DataTable, { type Column, type PaginationMeta } from '@admin/components/ui/dataTable/DataTable.vue'
-import RowActions from '@admin/components/ui/RowActions.vue'
 import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { rssFeedItemService, type RssFeedItem } from '../../services/rssFeedItemService'
@@ -73,7 +72,6 @@ onMounted(() => {
       :data="items"
       :loading="isLoading"
       :pagination="pagination"
-      :searchable="true"
       search-placeholder="Keresés cím vagy leírás alapján..."
       default-sort="published_at"
       default-direction="desc"
@@ -95,12 +93,8 @@ onMounted(() => {
       </template>
 
       <template #row-actions="{ row }">
-        <RowActions
-          :show-show="true"
-          :show-edit="false"
-          @show="viewItem(row.id)"
-          @delete="deleteItem(row.id)"
-        />
+        <IconButton icon="eye" @click="viewItem(row.id)" />
+        <DeleteButton @confirm="deleteItem(row.id)" />
       </template>
 
       <template #empty>

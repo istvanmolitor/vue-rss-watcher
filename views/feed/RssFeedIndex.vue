@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { AdminLayout, toastService, Button, Icon } from '@admin'
+import { AdminLayout, toastService, EditButton, DeleteButton, IconButton, CreateButton } from '@admin'
 import DataTable, { type Column, type PaginationMeta } from '@admin/components/ui/dataTable/DataTable.vue'
-import RowActions from '@admin/components/ui/RowActions.vue'
-import IconButton from '@admin/components/ui/button/IconButton.vue'
 import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { rssFeedService, type RssFeed } from '../../services/rssFeedService'
@@ -90,17 +88,13 @@ onMounted(() => {
       :data="feeds"
       :loading="isLoading"
       :pagination="pagination"
-      :searchable="true"
       search-placeholder="Keresés név vagy URL alapján..."
       default-sort="id"
       default-direction="desc"
       @fetch="fetchFeeds"
     >
       <template #actions>
-        <Button @click="router.push('/rss-feeds/create')">
-          <Icon name="plus" :size="16" class="mr-2" />
-          Új RSS Feed
-        </Button>
+        <CreateButton to="/rss-feeds/create">Új RSS Feed</CreateButton>
       </template>
 
       <template #cell-enabled="{ row }">
@@ -123,18 +117,14 @@ onMounted(() => {
       </template>
 
       <template #row-actions="{ row }">
-        <div class="flex items-center justify-end gap-1">
-          <IconButton
-            icon="RefreshCcw"
-            title="Frissítés"
-            :disabled="fetchingId === row.id"
-            @click="fetchFeed(row.id)"
-          />
-          <RowActions
-            @edit="editFeed(row.id)"
-            @delete="deleteFeed(row.id)"
-          />
-        </div>
+        <IconButton
+          icon="RefreshCcw"
+          title="Frissítés"
+          :disabled="fetchingId === row.id"
+          @click="fetchFeed(row.id)"
+        />
+        <EditButton @click="editFeed(row.id)" />
+        <DeleteButton @confirm="deleteFeed(row.id)" />
       </template>
 
       <template #empty>
