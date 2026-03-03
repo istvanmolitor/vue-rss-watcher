@@ -39,7 +39,7 @@ const handleSubmit = async () => {
 
 <template>
   <AdminLayout pageTitle="Új RSS Feed">
-    <div class="flex items-center justify-between space-y-2 mb-4">
+    <div class="flex items-center justify-end space-y-2 mb-4">
       <BackButton to="/rss-feeds" />
     </div>
 

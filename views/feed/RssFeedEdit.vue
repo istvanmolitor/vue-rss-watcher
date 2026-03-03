@@ -63,7 +63,7 @@ onMounted(() => {
 
 <template>
   <AdminLayout pageTitle="RSS Feed szerkesztése">
-    <div class="flex items-center justify-between space-y-2 mb-4">
+    <div class="flex items-center justify-end space-y-2 mb-4">
       <BackButton to="/rss-feeds" />
     </div>
 
