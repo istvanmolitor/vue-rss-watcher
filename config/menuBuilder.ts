@@ -1,4 +1,4 @@
-import { MenuBuilder, type MenuItemConfig } from '@menu/types/menu'
+import { MenuBuilder, type MenuItemConfig } from '@menu/index'
 import { Rss, Radio, List } from 'lucide-vue-next'
 
 /**
@@ -27,14 +27,14 @@ export class RssWatcherMenuBuilder extends MenuBuilder {
         {
           id: 'rss-feeds',
           title: 'RSS Feedek',
-          path: '/rss-feeds',
+          path: '/admin/rss-feed',
           icon: Radio,
           order: 10
         },
         {
           id: 'rss-items',
           title: 'RSS Elemek',
-          path: '/rss-items',
+          path: '/admin/rss-item',
           icon: List,
           order: 20
         }

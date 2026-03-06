@@ -21,7 +21,7 @@ const fetchItem = async () => {
     item.value = response.data.data
   } catch (error) {
     console.error('Hiba az RSS elem betöltésekor:', error)
-    router.push('/rss-items')
+    router.push('/admin/rss-item')
   } finally {
     isLoading.value = false
   }
@@ -40,7 +40,7 @@ onMounted(() => {
 <template>
   <AdminLayout pageTitle="RSS Elem részletei">
     <div class="flex items-center justify-between space-y-2 mb-4">
-      <BackButton to="/rss-items" />
+      <BackButton to="/admin/rss-item" />
     </div>
 
     <div v-if="isLoading" class="flex justify-center py-8">

@@ -27,7 +27,7 @@ const handleSubmit = async () => {
     isSaving.value = true
     await rssFeedService.create(form)
     toastService.success('RSS feed sikeresen létrehozva!')
-    router.push('/rss-feeds')
+    router.push('/admin/rss-feed')
   } catch (error) {
     console.error('Hiba az RSS feed létrehozásakor:', error)
     toastService.error('Hiba történt a mentés során.')
@@ -40,7 +40,7 @@ const handleSubmit = async () => {
 <template>
   <AdminLayout pageTitle="Új RSS Feed">
     <div class="flex items-center justify-end space-y-2 mb-4">
-      <BackButton to="/rss-feeds" />
+      <BackButton to="/admin/rss-feed" />
     </div>
 
     <Card>
@@ -66,7 +66,7 @@ const handleSubmit = async () => {
         <FormButtons
           :is-saving="isSaving"
           @save="handleSubmit"
-          @cancel="router.push('/rss-feeds')"
+          @cancel="router.push('/admin/rss-feed')"
         />
       </CardFooter>
     </Card>

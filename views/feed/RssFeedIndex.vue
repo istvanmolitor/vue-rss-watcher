@@ -54,7 +54,7 @@ const deleteFeed = async (id: number) => {
 }
 
 const editFeed = (id: number) => {
-  router.push(`/rss-feeds/${id}/edit`)
+  router.push(`/admin/rss-feed/${id}/edit`)
 }
 
 const fetchFeed = async (id: number) => {
@@ -94,7 +94,7 @@ onMounted(() => {
       @fetch="fetchFeeds"
     >
       <template #actions>
-        <CreateButton to="/rss-feeds/create">Új RSS Feed</CreateButton>
+        <CreateButton to="/admin/rss-feed/create">Új RSS Feed</CreateButton>
       </template>
 
       <template #cell-enabled="{ row }">

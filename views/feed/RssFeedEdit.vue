@@ -35,7 +35,7 @@ const fetchFeed = async () => {
     form.enabled = feed.enabled
   } catch (error) {
     console.error('Hiba az RSS feed betöltésekor:', error)
-    router.push('/rss-feeds')
+    router.push('/admin/rss-feed')
   } finally {
     isLoading.value = false
   }
@@ -47,7 +47,7 @@ const handleSubmit = async () => {
     isSaving.value = true
     await rssFeedService.update(id, form)
     toastService.success('RSS feed sikeresen frissítve!')
-    router.push('/rss-feeds')
+    router.push('/admin/rss-feed')
   } catch (error) {
     console.error('Hiba az RSS feed módosításakor:', error)
     toastService.error('Hiba történt a mentés során.')
@@ -64,7 +64,7 @@ onMounted(() => {
 <template>
   <AdminLayout pageTitle="RSS Feed szerkesztése">
     <div class="flex items-center justify-end space-y-2 mb-4">
-      <BackButton to="/rss-feeds" />
+      <BackButton to="/admin/rss-feed" />
     </div>
 
     <div v-if="isLoading" class="flex justify-center py-8">
@@ -94,7 +94,7 @@ onMounted(() => {
         <FormButtons
           :is-saving="isSaving"
           @save="handleSubmit"
-          @cancel="router.push('/rss-feeds')"
+          @cancel="router.push('/admin/rss-feed')"
         />
       </CardFooter>
     </Card>

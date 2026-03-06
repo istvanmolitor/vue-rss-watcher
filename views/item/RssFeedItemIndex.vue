@@ -52,7 +52,7 @@ const deleteItem = async (id: number) => {
 }
 
 const viewItem = (id: number) => {
-  router.push(`/rss-items/${id}`)
+  router.push(`/admin/rss-item/${id}`)
 }
 
 const formatDate = (dateString: string | null) => {
