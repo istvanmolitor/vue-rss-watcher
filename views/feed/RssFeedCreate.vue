@@ -25,8 +25,22 @@ const form = reactive<RssFeedFormData>({
 const handleSubmit = async () => {
   try {
     isSaving.value = true
-    await rssFeedService.create(form)
+    const response: any = await rssFeedService.create(form)
     toastService.success('RSS feed sikeresen létrehozva!')
+
+    const createdFeedId = response?.data?.data?.id ?? response?.data?.id ?? response?.id
+
+    if (createdFeedId !== undefined && createdFeedId !== null) {
+      await router.push({
+        name: 'rss-feed-edit',
+        params: {
+          id: String(createdFeedId),
+        },
+      })
+
+      return
+    }
+
     router.push('/admin/rss-feed')
   } catch (error) {
     console.error('Hiba az RSS feed létrehozásakor:', error)
