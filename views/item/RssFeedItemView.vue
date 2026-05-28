@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AdminLayout, BackButton } from '@admin'
+import { AdminLayout, BackButton, LoadingSpinner } from '@admin'
 import Card from '@admin/components/ui/Card.vue'
 import CardContent from '@admin/components/ui/CardContent.vue'
 import CardHeader from '@admin/components/ui/CardHeader.vue'
@@ -43,9 +43,7 @@ onMounted(() => {
       <BackButton to="/admin/rss-item" />
     </div>
 
-    <div v-if="isLoading" class="flex justify-center py-8">
-      Betöltés...
-    </div>
+    <div v-if="isLoading" class="flex justify-center py-8"><LoadingSpinner label="Betöltés..." /></div>
 
     <div v-else-if="item" class="space-y-4">
       <Card>
