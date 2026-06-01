@@ -23,20 +23,23 @@ export class RssWatcherMenuBuilder extends MenuBuilder {
       title: 'RSS Figyelő',
       icon: Rss,
       order: 30,
+      permission: 'rss_watcher',
       children: [
         {
           id: 'rss-feeds',
           title: 'RSS Feedek',
           path: '/admin/rss-feed',
           icon: Radio,
-          order: 10
+          order: 10,
+          permission: 'rss_watcher'
         },
         {
           id: 'rss-items',
           title: 'RSS Elemek',
           path: '/admin/rss-item',
           icon: List,
-          order: 20
+          order: 20,
+          permission: 'rss_watcher'
         }
       ]
     }
