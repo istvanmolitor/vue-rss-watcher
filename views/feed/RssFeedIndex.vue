@@ -17,7 +17,6 @@ const pagination = ref<PaginationMeta>({
 })
 
 const columns: Column<RssFeed>[] = [
-  { key: 'id', label: 'ID', sortable: true, width: '80px' },
   { key: 'name', label: 'Név', sortable: true },
   { key: 'url', label: 'URL', sortable: false },
   { key: 'enabled', label: 'Állapot', sortable: true, width: '120px' },

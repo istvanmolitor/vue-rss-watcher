@@ -16,7 +16,6 @@ const pagination = ref<PaginationMeta>({
 })
 
 const columns: Column<RssFeedItem>[] = [
-  { key: 'id', label: 'ID', sortable: true, width: '80px' },
   { key: 'title', label: 'Cím', sortable: true },
   { key: 'feed', label: 'Feed', sortable: false, width: '200px' },
   { key: 'published_at', label: 'Publikálva', sortable: true, width: '180px' },
