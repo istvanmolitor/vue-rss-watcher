@@ -84,7 +84,7 @@ onMounted(() => {
           <Input id="url" v-model="form.url" type="url" placeholder="https://example.com/feed.xml" />
         </div>
         <div class="flex items-center space-x-2">
-          <Checkbox id="enabled" v-model:checked="form.enabled" />
+          <Checkbox id="enabled" v-model="form.enabled" />
           <Label for="enabled" class="cursor-pointer">Feed aktív</Label>
         </div>
       </CardContent>
