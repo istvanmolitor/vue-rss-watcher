@@ -73,7 +73,7 @@ const handleSubmit = async () => {
         </div>
         <div class="flex items-center space-x-2">
           <Checkbox id="enabled" v-model="form.enabled" />
-          <Label for="enabled" class="cursor-pointer">Feed aktív</Label>
+          <Label for="enabled" variant="checkbox">Feed aktív</Label>
         </div>
       </CardContent>
       <CardFooter>
