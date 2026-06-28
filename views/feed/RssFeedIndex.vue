@@ -16,12 +16,7 @@ const pagination = ref<PaginationMeta>({
   total: 0
 })
 
-const columns: Column<RssFeed>[] = [
-  { key: 'name', label: 'Név', sortable: true },
-  { key: 'url', label: 'URL', sortable: false },
-  { key: 'enabled', label: 'Állapot', sortable: true, width: '120px' },
-  { key: 'last_fetched_at', label: 'Utolsó lekérés', sortable: true, width: '180px' },
-]
+const columns = ref<Column[]>([])
 
 const fetchFeeds = async (params: {
   search?: string
@@ -34,6 +29,7 @@ const fetchFeeds = async (params: {
     const response = await rssFeedService.getAll(params)
     feeds.value = response.data.data
     pagination.value = response.data.meta
+    columns.value = (response.data.columns ?? []) as Column[]
   } catch (error) {
     console.error('Hiba az RSS feedek betöltésekor:', error)
   } finally {

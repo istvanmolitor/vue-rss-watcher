@@ -15,11 +15,7 @@ const pagination = ref<PaginationMeta>({
   total: 0
 })
 
-const columns: Column<RssFeedItem>[] = [
-  { key: 'title', label: 'Cím', sortable: true },
-  { key: 'feed', label: 'Feed', sortable: false, width: '200px' },
-  { key: 'published_at', label: 'Publikálva', sortable: true, width: '180px' },
-]
+const columns = ref<Column[]>([])
 
 const fetchItems = async (params: {
   search?: string
@@ -32,6 +28,7 @@ const fetchItems = async (params: {
     const response = await rssFeedItemService.getAll(params)
     items.value = response.data.data
     pagination.value = response.data.meta
+    columns.value = (response.data.columns ?? []) as Column[]
   } catch (error) {
     console.error('Hiba az RSS elemek betöltésekor:', error)
   } finally {
