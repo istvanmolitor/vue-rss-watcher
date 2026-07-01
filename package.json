@@ -1,0 +1,15 @@
+{
+  "name": "vue-rss-watcher",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "RSS Watcher Vue 3 components and services",
+  "main": "./index.ts",
+  "module": "./index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  }
+}
